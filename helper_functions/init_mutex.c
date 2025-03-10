@@ -6,13 +6,13 @@
 /*   By: oafidi <oafidi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 07:00:18 by oafidi            #+#    #+#             */
-/*   Updated: 2025/03/10 07:05:14 by oafidi           ###   ########.fr       */
+/*   Updated: 2025/03/10 02:16:59 by oafidi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
 
-static void	destroy_mutex(t_dinning *dinner, int nbr)
+void	destroy_mutex(t_dinning *dinner, int nbr)
 {
 	int	i;
 

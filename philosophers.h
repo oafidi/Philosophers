@@ -6,7 +6,7 @@
 /*   By: oafidi <oafidi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 03:36:37 by oafidi            #+#    #+#             */
-/*   Updated: 2025/03/10 07:17:23 by oafidi           ###   ########.fr       */
+/*   Updated: 2025/03/10 02:37:22 by oafidi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,8 @@ typedef struct	s_dinning
 
 long	ft_atol(char *str);
 int		init_mutex(t_dinning *dinner);
+void	destroy_mutex(t_dinning *dinner, int nbr);
+void	_usleep(long useconds);
+long	get_time(void);
+
 #endif

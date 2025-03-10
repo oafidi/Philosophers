@@ -6,11 +6,13 @@
 /*   By: oafidi <oafidi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 03:36:30 by oafidi            #+#    #+#             */
-/*   Updated: 2025/03/10 07:19:37 by oafidi           ###   ########.fr       */
+/*   Updated: 2025/03/10 02:52:15 by oafidi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+void *routine(void *arg);
 
 static int	init_table(t_dinning *dinner)
 {
@@ -24,7 +26,14 @@ static int	init_table(t_dinning *dinner)
 		dinner->philos[i].id = i + 1;
 		dinner->philos[i].start_time = get_time();
 		dinner->philos[i].meals_eaten = 0;
-
+		if (pthread_create(&dinner->philos[i].tid, NULL, routine, dinner))
+			write(2, "Failed to create a philosopher !!\n", 35);
+		else
+		{
+			if (pthread_detach(dinner->philos[i].tid))
+				write(2, "Failed to detach a philosopher !!\n", 35);
+		}
+		i++;
 	}
 }
 
