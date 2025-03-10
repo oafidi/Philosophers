@@ -6,7 +6,7 @@
 /*   By: oafidi <oafidi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 03:36:37 by oafidi            #+#    #+#             */
-/*   Updated: 2025/03/10 06:07:28 by oafidi           ###   ########.fr       */
+/*   Updated: 2025/03/10 07:17:23 by oafidi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,5 @@ typedef struct	s_dinning
 }	t_dinning;
 
 long	ft_atol(char *str);
+int		init_mutex(t_dinning *dinner);
 #endif
