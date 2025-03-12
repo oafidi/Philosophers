@@ -1,34 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time.c                                             :+:      :+:    :+:   */
+/*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oafidi <oafidi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/11 23:37:17 by oafidi            #+#    #+#             */
-/*   Updated: 2025/03/12 00:07:01 by oafidi           ###   ########.fr       */
+/*   Created: 2025/03/12 02:21:50 by oafidi            #+#    #+#             */
+/*   Updated: 2025/03/12 06:35:05 by oafidi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
 
-long	get_time(void)
+void	print(char *str, int philo_id, t_dinning *dinner)
 {
-	struct timeval	_time;
-
-	if (gettimeofday(&_time, NULL) == -1)
-	{
-		write(2, "Failed to get the time of day !!\n", 34);
-		return(-1);
-	}
-	return (_time.tv_sec * 1000 + _time.tv_usec / 1000);
-}
-
-void	precise_usleep(long msec)
-{
-	long	start;
-
-	start = get_time();
-	while (get_time() - start < msec)
-		usleep(500);
+	pthread_mutex_lock(&dinner->print);
+	printf("%ld %d %s\n", get_time() - dinner->start_time, philo_id, str);
+	pthread_mutex_unlock(&dinner->print);
 }

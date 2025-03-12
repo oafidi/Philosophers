@@ -6,7 +6,7 @@ CFLAGS = -Wall -Werror -Wextra
 
 CC = cc
 
-SRCS = philosophers.c helper_functions/ft_atol.c helper_functions/init_mutex.c
+SRCS = philosophers.c helper_functions/atol.c helper_functions/mutex.c helper_functions/time.c helper_functions/print.c
 
 OBJS = $(SRCS:.c=.o)
 
