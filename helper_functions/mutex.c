@@ -34,7 +34,11 @@ int	init_mutex(t_dinning *dinner)
 	i = 0;
 	if (pthread_mutex_init(&dinner->print, NULL))
 		return (write(2, "Failed to inisialize print mutex !!\n", 37), 0);
-	//if(Auther mutex)--> print mutex ;destroy_mutex(dinner, PRINT_M, i)
+	if (pthread_mutex_init(&dinner->meals, NULL))
+	{
+		write(2, "Failed to inisialize meals mutex !!\n", 37);
+		return (destroy_mutex(dinner, PRINT_M, 0), 0);
+	}
 	while (i < dinner->nbr_philos)
 	{
 		if (pthread_mutex_init(&dinner->forks[i], NULL))

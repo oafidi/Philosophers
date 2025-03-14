@@ -45,13 +45,16 @@ typedef struct	s_dinning
 	long			start_time;
 	pthread_mutex_t	forks[200];
 	pthread_mutex_t	print;
+	pthread_mutex_t	meals;
 }	t_dinning;
 
-long	ft_atol(char *str);
 int		init_mutex(t_dinning *dinner);
 long	get_time(void);
 void	precise_usleep(long msec);
 void	print(char *str, int philo_id, t_dinning *dinner);
 void	destroy_mutex(t_dinning *dinner, int flag, int nbr);
+int		check_arguments(int argc, char **argv, t_dinning *dinner);
+int		init_dinner(t_dinning *dinner);
+void	*routine(void *arg);
 
 #endif
