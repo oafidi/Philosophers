@@ -6,7 +6,7 @@
 /*   By: oafidi <oafidi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 23:37:17 by oafidi            #+#    #+#             */
-/*   Updated: 2025/03/15 06:31:55 by oafidi           ###   ########.fr       */
+/*   Updated: 2025/03/15 08:32:17 by oafidi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ long	get_time(void)
 void	precise_usleep(long msec, t_dinning *dinner)
 {
 	long	start;
-(void)dinner;
+
 	start = get_time();
-	while (get_time() - start < msec)
+	while (get_time() - start < msec && !get_dead_flag(dinner))
 		usleep(500);
 }

@@ -6,7 +6,7 @@
 /*   By: oafidi <oafidi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 00:40:45 by oafidi            #+#    #+#             */
-/*   Updated: 2025/03/15 04:09:51 by oafidi           ###   ########.fr       */
+/*   Updated: 2025/03/15 08:37:34 by oafidi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,11 @@ int	init_dinner(t_dinning *dinner)
 	t_philosopher	*philo;
 
 	i = 0;
-	dinner->start_time = get_time();
-	dinner->is_dead = 0;
+
 	if (!init_mutex(dinner))
 		return (0);
+	dinner->start_time = get_time();
+	dinner->is_dead = 0;
 	while (i <  dinner->nbr_philos)
 	{
 		philo = &(dinner->philos[i]);
