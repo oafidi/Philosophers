@@ -2,12 +2,12 @@ NAME = philo
 
 FLAGS = -lpthread
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra  -fsanitize=thread -g
 
 CC = cc
 
 SRCS = philosophers.c helper_functions/parsing.c helper_functions/mutex.c helper_functions/time.c helper_functions/print.c \
-		helper_functions/dinner.c 
+		helper_functions/dinner.c helper_functions/simulation.c helper_functions/actions.c
 
 OBJS = $(SRCS:.c=.o)
 

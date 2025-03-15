@@ -6,7 +6,7 @@
 /*   By: oafidi <oafidi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 23:37:17 by oafidi            #+#    #+#             */
-/*   Updated: 2025/03/12 00:07:01 by oafidi           ###   ########.fr       */
+/*   Updated: 2025/03/15 06:31:55 by oafidi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ long	get_time(void)
 	return (_time.tv_sec * 1000 + _time.tv_usec / 1000);
 }
 
-void	precise_usleep(long msec)
+void	precise_usleep(long msec, t_dinning *dinner)
 {
 	long	start;
-
+(void)dinner;
 	start = get_time();
 	while (get_time() - start < msec)
 		usleep(500);
