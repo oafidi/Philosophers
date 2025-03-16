@@ -6,7 +6,7 @@
 /*   By: oafidi <oafidi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 03:36:37 by oafidi            #+#    #+#             */
-/*   Updated: 2025/03/15 09:07:12 by oafidi           ###   ########.fr       */
+/*   Updated: 2025/03/16 00:59:49 by oafidi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct	s_dinning
 	long			time2sleep;
 	int				nbr_meals;
 	long			start_time;
+	pthread_t		supervisor;
 	t_philosopher	philos[200];
 	pthread_mutex_t	forks[200];
 	pthread_mutex_t	print;
@@ -58,11 +59,12 @@ void	destroy_mutex(t_dinning *dinner, int flag, int nbr);
 int		check_arguments(int argc, char **argv, t_dinning *dinner);
 int		init_dinner(t_dinning *dinner);
 void	*routine(void *arg);
-void	supervisor(t_dinning *dinner);
+void	*supervisor(void *arg);
 void	sleep_action(t_philosopher	*philo);
 void	eat_action(t_philosopher	*philo);
 void	think_action(t_philosopher	*philo);
 void	precise_usleep(long msec, t_dinning *dinner);
 int		get_dead_flag(t_dinning *dinner);
+void	set_dead_flag(t_dinning *dinner, int value);
 
 #endif

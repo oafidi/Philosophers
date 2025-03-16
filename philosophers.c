@@ -6,7 +6,7 @@
 /*   By: oafidi <oafidi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 03:36:30 by oafidi            #+#    #+#             */
-/*   Updated: 2025/03/15 06:39:00 by oafidi           ###   ########.fr       */
+/*   Updated: 2025/03/16 00:59:57 by oafidi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,5 @@ int	main(int argc, char **argv)
 		return (1);
 	if (!init_dinner(&dinner))
 		return (1);
-	supervisor(&dinner);
 	destroy_mutex(&dinner, FORK | PRINT | DEAD | MEAL, dinner.nbr_philos);
 }
