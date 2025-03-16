@@ -6,7 +6,7 @@
 /*   By: oafidi <oafidi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 00:41:43 by oafidi            #+#    #+#             */
-/*   Updated: 2025/03/15 08:27:45 by oafidi           ###   ########.fr       */
+/*   Updated: 2025/03/15 22:52:57 by oafidi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	have_eating(t_dinning *dinner)
 		pthread_mutex_lock(&dinner->meals);
 		meals_eaten = dinner->philos[i].meals_eaten;
 		pthread_mutex_unlock(&dinner->meals);
-		if (dinner->nbr_meals == meals_eaten)
+		if (dinner->nbr_meals <= meals_eaten)
 			count++;
 		i++;
 	}
@@ -70,7 +70,7 @@ void	supervisor(t_dinning *dinner)
 			{
 				print("died", philo->id, dinner);
 				set_dead_flag(dinner, 1);
-				usleep(1000000);
+				usleep(10000);
 				return ;
 			}
 			i++;
