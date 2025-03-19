@@ -6,7 +6,7 @@
 /*   By: oafidi <oafidi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 00:40:39 by oafidi            #+#    #+#             */
-/*   Updated: 2025/03/16 07:16:44 by oafidi           ###   ########.fr       */
+/*   Updated: 2025/03/16 23:31:51 by oafidi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,12 @@ void	sleep_action(t_philosopher	*philo)
 }
 
 void	eat_action(t_philosopher	*philo)
-{	//write(2, "Hello\n", 7);
+{
 	if (!get_dead_flag(philo->dinner))
 	{
 		pthread_mutex_lock(&philo->dinner->forks[philo->l_fork]);
 		print("has taken a fork", philo->id, philo->dinner);
-		//write(2, "Hello\n", 7);
 		pthread_mutex_lock(&philo->dinner->forks[philo->r_fork]);
-		//write(2, "Hello\n", 7);
 		print("has taken a fork", philo->id, philo->dinner);
 		print("is eating", philo->id, philo->dinner);
 		pthread_mutex_lock(&philo->dinner->meals);

@@ -6,7 +6,7 @@
 /*   By: oafidi <oafidi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 00:40:45 by oafidi            #+#    #+#             */
-/*   Updated: 2025/03/16 06:48:16 by oafidi           ###   ########.fr       */
+/*   Updated: 2025/03/17 01:13:31 by oafidi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static void	init_philosopher(t_dinning *dinner)
 		philo->id = i + 1;
 		pthread_mutex_lock(&dinner->meals);
 		philo->last_meal = get_time();
-		//printf("last time -->%ld\n",philo->last_meal);
 		philo->meals_eaten = 0;
 		pthread_mutex_unlock(&dinner->meals);
 		philo->l_fork = i;
@@ -32,19 +31,50 @@ static void	init_philosopher(t_dinning *dinner)
 		philo->dinner = dinner;
 		i++;
 	}
-	// i = 0;
-	// while (i < dinner->nbr_philos)
-	// {
-	// 	printf("id --> %d\n", dinner->philos[i].id);
-	// 	i++;
-	// }
+}
 
+static int	create_philosophers(t_dinning *dinner)
+{
+	int				i;
+	t_philosopher	*philo;
+
+	i = 0;
+	while (i < dinner->nbr_philos)
+	{
+		philo = &(dinner->philos[i]);
+		pthread_mutex_lock(&dinner->meals);
+		philo->last_meal = get_time();
+		pthread_mutex_unlock(&dinner->meals);
+		if (pthread_create(&(philo->tid), NULL, routine, philo))
+		{
+			set_dead_flag(dinner, 1);
+			write(2, "Failed to create a philosopher thread !!\n", 42);
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
+static void	join_philosophers(t_dinning *dinner)
+{
+	int	i;
+
+	i = 0;
+	while (i < dinner->nbr_philos)
+	{
+		if (pthread_join(dinner->philos[i].tid, NULL))
+		{
+			set_dead_flag(dinner, 1);
+			write(2, "Failed to detach a philo thread !!\n", 36);
+		}
+		i++;
+	}
 }
 
 int	init_dinner(t_dinning *dinner)
 {
-	int				i;
-	t_philosopher	*philo;
+	int	i;
 
 	i = 0;
 	if (!init_mutex(dinner))
@@ -54,21 +84,13 @@ int	init_dinner(t_dinning *dinner)
 	init_philosopher(dinner);
 	if (pthread_create(&dinner->supervisor, NULL, supervisor, dinner))
 		return (write(2, "Failed to create supervisor thread !!\n", 39), 0);
-	while (i < dinner->nbr_philos)
-	{
-		philo = &(dinner->philos[i]);
-		if (pthread_create(&(philo->tid), NULL, routine, philo))
-			return (set_dead_flag(dinner, 1), write(2, "Failed to create a philosopher thread !!\n", 42), 0);
-		i++;
-	}
+	if (!create_philosophers(dinner))
+		return (0);
 	if (pthread_join(dinner->supervisor, NULL))
-		return (set_dead_flag(dinner, 1), write(2, "Failed to detach supervisor thread !!\n", 39), 0); // verifier !!
-	i = 0;
-	while (i < dinner->nbr_philos)
 	{
-		if (pthread_join(dinner->philos[i].tid, NULL))
-			return (set_dead_flag(dinner, 1), write(2, "Failed to detach a philo thread !!\n", 36), 0); // verifier !!
-		i++;
+		set_dead_flag(dinner, 1);
+		write(2, "Failed to detach supervisor thread !!\n", 39);
 	}
+	join_philosophers(dinner);
 	return (1);
 }

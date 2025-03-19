@@ -6,7 +6,7 @@
 /*   By: oafidi <oafidi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 03:36:43 by oafidi            #+#    #+#             */
-/*   Updated: 2025/03/15 04:08:09 by oafidi           ###   ########.fr       */
+/*   Updated: 2025/03/18 22:53:46 by oafidi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	check_arguments(int argc, char **argv, t_dinning *dinner)
 	dinner->time2die = ft_atol(argv[2]);
 	dinner->time2eat = ft_atol(argv[3]);
 	dinner->time2sleep = ft_atol(argv[4]);
-	dinner->nbr_meals = -1;
+	dinner->nbr_meals = 0;
 	if (!(argc ^ 6))
 		dinner->nbr_meals = ft_atol(argv[5]);
 	if (dinner->nbr_philos <= 0 || dinner->nbr_philos > 200)
