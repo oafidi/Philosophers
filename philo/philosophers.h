@@ -6,7 +6,7 @@
 /*   By: oafidi <oafidi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 03:36:37 by oafidi            #+#    #+#             */
-/*   Updated: 2025/03/16 00:59:49 by oafidi           ###   ########.fr       */
+/*   Updated: 2025/03/20 08:56:08 by oafidi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,23 @@
 # include <sys/time.h>
 # include <limits.h>
 
-# define	FORK 1
-# define	DEAD 8
-# define	MEAL 4
-# define	PRINT 2
+# define FORK 1
+# define DEAD 8
+# define MEAL 4
+# define PRINT 2
 
-typedef struct	s_philosopher
+typedef struct s_philosopher
 {
-	int			id;
-	pthread_t	tid;
-	long		last_meal;
-	int			meals_eaten;
-	int			l_fork;
-	int			r_fork;
+	int					id;
+	pthread_t			tid;
+	long				last_meal;
+	int					meals_eaten;
+	int					l_fork;
+	int					r_fork;
 	struct s_dinning	*dinner;
 }	t_philosopher;
 
-typedef struct	s_dinning
+typedef struct s_dinning
 {
 	int				nbr_philos;
 	int				is_dead;
@@ -60,6 +60,7 @@ int		check_arguments(int argc, char **argv, t_dinning *dinner);
 int		init_dinner(t_dinning *dinner);
 void	*routine(void *arg);
 void	*supervisor(void *arg);
+void	one_philo(t_philosopher *philo);
 void	sleep_action(t_philosopher	*philo);
 void	eat_action(t_philosopher	*philo);
 void	think_action(t_philosopher	*philo);

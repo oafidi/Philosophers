@@ -6,7 +6,7 @@
 /*   By: oafidi <oafidi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 00:41:43 by oafidi            #+#    #+#             */
-/*   Updated: 2025/03/18 23:14:23 by oafidi           ###   ########.fr       */
+/*   Updated: 2025/03/20 08:55:26 by oafidi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,6 @@ void	*supervisor(void *arg)
 	}
 }
 
-void one_philo(t_philosopher *philo)
-{
-	if (!get_dead_flag(philo->dinner))
-	{
-		pthread_mutex_lock(&philo->dinner->forks[philo->l_fork]);
-		print("has taken a fork", philo->id, philo->dinner);
-		pthread_mutex_unlock(&philo->dinner->forks[philo->l_fork]);
-	}
-}
 void	*routine(void *arg)
 {
 	t_philosopher	*philo;

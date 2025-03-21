@@ -6,19 +6,20 @@
 /*   By: oafidi <oafidi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 02:21:50 by oafidi            #+#    #+#             */
-/*   Updated: 2025/03/18 23:16:11 by oafidi           ###   ########.fr       */
+/*   Updated: 2025/03/20 08:54:52 by oafidi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
 
-static int ft_strcmp(char *s1, char *s2)
+static int	ft_strcmp(char *s1, char *s2)
 {
-	int i = 0;
+	int	i;
 
-	while((s1[i] == s2[i]) && s1[i] && s2[i])
+	i = 0;
+	while ((s1[i] == s2[i]) && s1[i] && s2[i])
 		i++;
-	return (s1[i]-s2[i]);
+	return (s1[i] - s2[i]);
 }
 
 void	print(char *str, int philo_id, t_dinning *dinner)

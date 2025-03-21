@@ -6,15 +6,25 @@
 /*   By: oafidi <oafidi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 00:40:45 by oafidi            #+#    #+#             */
-/*   Updated: 2025/03/17 01:13:31 by oafidi           ###   ########.fr       */
+/*   Updated: 2025/03/20 08:55:59 by oafidi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
 
+void	one_philo(t_philosopher *philo)
+{
+	if (!get_dead_flag(philo->dinner))
+	{
+		pthread_mutex_lock(&philo->dinner->forks[philo->l_fork]);
+		print("has taken a fork", philo->id, philo->dinner);
+		pthread_mutex_unlock(&philo->dinner->forks[philo->l_fork]);
+	}
+}
+
 static void	init_philosopher(t_dinning *dinner)
 {
-	int i;
+	int				i;
 	t_philosopher	*philo;
 
 	i = 0;
@@ -74,9 +84,6 @@ static void	join_philosophers(t_dinning *dinner)
 
 int	init_dinner(t_dinning *dinner)
 {
-	int	i;
-
-	i = 0;
 	if (!init_mutex(dinner))
 		return (0);
 	dinner->start_time = get_time();
