@@ -6,7 +6,7 @@
 /*   By: oafidi <oafidi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 13:22:02 by oafidi            #+#    #+#             */
-/*   Updated: 2025/03/22 14:22:17 by oafidi           ###   ########.fr       */
+/*   Updated: 2025/03/22 17:23:34 by oafidi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	*check_death(void *arg)
 		sem_post(philo->dinner->meals);
 		if (get_time() - last_time > philo->dinner->time2die)
 			return (print("died", philo->id, philo->dinner), NULL);
-		usleep(100);
 	}
 }
 
