@@ -2,7 +2,7 @@ NAME = philo_bonus
 
 FLAGS = -lpthread
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -fsanitize=thread -g
 
 CC = cc
 

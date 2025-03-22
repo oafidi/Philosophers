@@ -6,7 +6,7 @@
 /*   By: oafidi <oafidi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 11:06:56 by oafidi            #+#    #+#             */
-/*   Updated: 2025/03/21 14:03:13 by oafidi           ###   ########.fr       */
+/*   Updated: 2025/03/22 13:41:17 by oafidi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,38 @@ int	init_semaphores(t_dinning *dinner)
 {
 	sem_unlink("/print_sem");
 	sem_unlink("/forks_sem");
+	sem_unlink("/meals_sem");
+	sem_unlink("/stop_sem");
 	dinner->print = sem_open("/print_sem", O_CREAT, 0600, 1);
-	if (dinner->print == SEM_FAILED)
-		return (write(2, "Failed to inisialize print semaphore !!\n", 41), 0);
 	dinner->forks = sem_open("/forks_sem", O_CREAT, 0600, dinner->nbr_philos);
-	if (dinner->forks == SEM_FAILED)
+	dinner->meals = sem_open("/meals_sem", O_CREAT, 0600, 1);
+	dinner->stop = sem_open("/stop_sem", O_CREAT, 0600, 0);
+	if (dinner->stop == SEM_FAILED || dinner->forks == SEM_FAILED
+		|| dinner->meals == SEM_FAILED || dinner->print == SEM_FAILED)
 	{
-		sem_close(dinner->print);
-		sem_unlink("/print_sem");
-		return (write(2, "Failed to inisialize forks semaphore !!\n", 41), 0);
+		destroy_semaphores(dinner);
+		return (write(2, "Failed to inisialize semaphores !!\n", 36), 0);
 	}
 	return (1);
 }
 
-void	close_semaphores(t_dinning *dinner)
-{
-	sem_close(dinner->print);
-	sem_close(dinner->forks);
-}
-
 void	destroy_semaphores(t_dinning *dinner)
 {
-	close_semaphores(dinner);
+	sem_close(dinner->forks);
+	sem_close(dinner->meals);
+	sem_close(dinner->print);
+	sem_close(dinner->stop);
 	sem_unlink("/print_sem");
 	sem_unlink("/forks_sem");
+	sem_unlink("/meals_sem");
+	sem_unlink("/stop_sem");
+}
+
+void	kill_processes(t_dinning *dinner, int count)
+{
+	int	i;
+
+	i = 0;
+	while (i < count)
+		kill(dinner->philos[i++].pid, SIGKILL);
 }
