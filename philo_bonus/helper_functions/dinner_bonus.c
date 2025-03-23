@@ -6,7 +6,7 @@
 /*   By: oafidi <oafidi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 10:22:44 by oafidi            #+#    #+#             */
-/*   Updated: 2025/03/22 14:21:34 by oafidi           ###   ########.fr       */
+/*   Updated: 2025/03/23 11:08:23 by oafidi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	init_philosopher(t_dinning *dinner)
 	while (i < dinner->nbr_philos)
 	{
 		philo = &(dinner->philos[i]);
+		philo->flag = 1;
 		philo->id = i + 1;
 		sem_wait(dinner->meals);
 		philo->meals_eaten = 0;
@@ -43,19 +44,20 @@ int	create_philosophers(t_dinning *dinner)
 {
 	int				i;
 	t_philosopher	*philo;
+	int				j;
 
+	j = 0;
 	i = 0;
 	while (i < dinner->nbr_philos)
 	{
 		philo = &(dinner->philos[i]);
-		sem_wait(dinner->meals);
-		philo->last_meal = get_time();
-		sem_post(dinner->meals);
 		philo->pid = fork();
 		if (philo->pid == -1)
 		{
 			write(2, "Failed to create a process !!\n", 31);
-			return (sem_post(dinner->stop), i);
+			while (j++ < i)
+				sem_post(dinner->stop);
+			return (i);
 		}
 		else if (philo->pid == 0)
 			routine(philo);

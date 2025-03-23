@@ -6,7 +6,7 @@
 /*   By: oafidi <oafidi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 13:49:08 by oafidi            #+#    #+#             */
-/*   Updated: 2025/03/22 17:23:28 by oafidi           ###   ########.fr       */
+/*   Updated: 2025/03/23 09:18:24 by oafidi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	eat_action(t_philosopher	*philo)
 	print("has taken a fork", philo->id, philo->dinner);
 	print("is eating", philo->id, philo->dinner);
 	sem_wait(philo->dinner->meals);
-	philo->meals_eaten++;
 	philo->last_meal = get_time();
+	philo->meals_eaten++;
 	sem_post(philo->dinner->meals);
 	precise_usleep(philo->dinner->time2eat);
 	sem_post(philo->dinner->forks);

@@ -6,7 +6,7 @@
 /*   By: oafidi <oafidi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 09:55:36 by oafidi            #+#    #+#             */
-/*   Updated: 2025/03/22 14:20:42 by oafidi           ###   ########.fr       */
+/*   Updated: 2025/03/23 11:08:00 by oafidi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <fcntl.h>
 # include <semaphore.h>
 # include <signal.h>
+# include <stdlib.h>
 
 typedef struct s_philosopher
 {
@@ -28,6 +29,7 @@ typedef struct s_philosopher
 	pid_t				pid;
 	long				last_meal;
 	int					meals_eaten;
+	int					flag;
 	struct s_dinning	*dinner;
 }	t_philosopher;
 

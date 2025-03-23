@@ -6,7 +6,7 @@
 /*   By: oafidi <oafidi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 13:55:55 by oafidi            #+#    #+#             */
-/*   Updated: 2025/03/22 15:15:33 by oafidi           ###   ########.fr       */
+/*   Updated: 2025/03/23 11:12:46 by oafidi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,15 @@ static int	ft_strcmp(char *s1, char *s2)
 
 void	print(char *str, int philo_id, t_dinning *dinner)
 {
+	int	i;
+
 	if (!ft_strcmp(str, "died"))
 	{
+		i = 0;
 		sem_wait(dinner->print);
-		sem_wait(dinner->meals);
 		printf("%ld %d %s\n", get_time() - dinner->start_time, philo_id, str);
-		sem_post(dinner->stop);
+		while (i++ < dinner->nbr_philos)
+			sem_post(dinner->stop);
 		return ;
 	}
 	sem_wait(dinner->print);
