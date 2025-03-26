@@ -16,9 +16,9 @@ int	main(int argc, char **argv)
 {
 	t_dinning	dinner;
 
-	if (!check_arguments(argc, argv, &dinner))
+	if (!check_arguments(argc, argv, &dinner))//3la wed parsing
 		return (1);
-	if (!init_dinner(&dinner))
+	if (!init_dinner(&dinner))//hna kaybda le3cha
 		return (1);
-	destroy_mutex(&dinner, FORK | PRINT | DEAD | MEAL, dinner.nbr_philos);
+	destroy_mutex(&dinner, FORK | PRINT | DEAD | MEAL, dinner.nbr_philos);//flekher khas ndir destroy lga3 mutex dyali
 }

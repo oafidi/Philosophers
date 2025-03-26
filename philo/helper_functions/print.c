@@ -28,13 +28,13 @@ void	print(char *str, int philo_id, t_dinning *dinner)
 	{
 		pthread_mutex_lock(&dinner->print);
 		printf("%ld %d %s\n", get_time() - dinner->start_time, philo_id, str);
-		set_dead_flag(dinner, 1);
+		set_dead_flag(dinner, 1); // ila ktebt message dyal die kan9oul lphilos bli wa7ed mat bach y7ebsso routine
 		usleep(50);
 		pthread_mutex_unlock(&dinner->print);
 		return ;
 	}
-	pthread_mutex_lock(&dinner->print);
+	pthread_mutex_lock(&dinner->print);// sed 3la stdin
 	if (!get_dead_flag(dinner))
-		printf("%ld %d %s\n", get_time() - dinner->start_time, philo_id, str);
-	pthread_mutex_unlock(&dinner->print);
+		printf("%ld %d %s\n", get_time() - dinner->start_time, philo_id, str); //kteb
+	pthread_mutex_unlock(&dinner->print);// tlo9 l mutex
 }

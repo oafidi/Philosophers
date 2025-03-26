@@ -16,7 +16,7 @@ long	get_time(void)
 {
 	struct timeval	_time;
 
-	if (gettimeofday(&_time, NULL) == -1)
+	if (gettimeofday(&_time, NULL) == -1) // 9eleb 3liha
 	{
 		write(2, "Failed to get the time of day !!\n", 34);
 		return (0);
@@ -29,6 +29,6 @@ void	precise_usleep(long msec, t_dinning *dinner)
 	long	start;
 
 	start = get_time();
-	while (get_time() - start < msec && !get_dead_flag(dinner))
+	while (get_time() - start < msec && !get_dead_flag(dinner))// usleep fiha wa7ed erreur dakchi 3lach kan7awlo nseghro meno 9leb kter 3liha
 		usleep(100);
 }

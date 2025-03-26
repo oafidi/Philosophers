@@ -55,23 +55,23 @@ static int	create_philosophers(t_dinning *dinner)
 		pthread_mutex_lock(&dinner->meals);
 		philo->last_meal = get_time();
 		pthread_mutex_unlock(&dinner->meals);
-		if (pthread_create(&(philo->tid), NULL, routine, philo))
+		if (pthread_create(&(philo->tid), NULL, routine, philo))// kol philo ghaymchi ydir routine
 		{
 			set_dead_flag(dinner, 1);
 			write(2, "Failed to create a philosopher thread !!\n", 42);
-			return (0);
+			return (i);
 		}
 		i++;
 	}
-	return (1);
+	return (i);
 }
 
-static void	join_philosophers(t_dinning *dinner)
+static void	join_philosophers(t_dinning *dinner, int count)
 {
 	int	i;
 
 	i = 0;
-	while (i < dinner->nbr_philos)
+	while (i < count)
 	{
 		if (pthread_join(dinner->philos[i].tid, NULL))
 		{
@@ -84,20 +84,22 @@ static void	join_philosophers(t_dinning *dinner)
 
 int	init_dinner(t_dinning *dinner)
 {
-	if (!init_mutex(dinner))
+	int	count;
+
+	if (!init_mutex(dinner))// initialisation dyal mutex
 		return (0);
-	dinner->start_time = get_time();
-	set_dead_flag(dinner, 0);
-	init_philosopher(dinner);
-	if (pthread_create(&dinner->supervisor, NULL, supervisor, dinner))
+	dinner->start_time = get_time();//m3ach bda le3cha , dik get time khas nsaybouha
+	set_dead_flag(dinner, 0);// tawa7ed mamat
+	init_philosopher(dinner);// initialisation dyal philos
+	if (pthread_create(&dinner->supervisor, NULL, supervisor, dinner))// kansayb supervisor
 		return (write(2, "Failed to create supervisor thread !!\n", 39), 0);
-	if (!create_philosophers(dinner))
-		return (0);
+	//count howa 3adad lphalasipha li tssaybo
+	count = create_philosophers(dinner);
 	if (pthread_join(dinner->supervisor, NULL))
 	{
 		set_dead_flag(dinner, 1);
 		write(2, "Failed to detach supervisor thread !!\n", 39);
 	}
-	join_philosophers(dinner);
+	join_philosophers(dinner, count);
 	return (1);
 }
