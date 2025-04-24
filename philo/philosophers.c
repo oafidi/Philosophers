@@ -12,13 +12,19 @@
 
 #include "philosophers.h"
 
-int	main(int argc, char **argv)
+// Fonction principale qui initialise le programme
+int main(int argc, char **argv)
 {
-	t_dinning	dinner;
+    t_dinning dinner;
 
-	if (!check_arguments(argc, argv, &dinner))//3la wed parsing
-		return (1);
-	if (!init_dinner(&dinner))//hna kaybda le3cha
-		return (1);
-	destroy_mutex(&dinner, FORK | PRINT | DEAD | MEAL, dinner.nbr_philos);//flekher khas ndir destroy lga3 mutex dyali
+    // Vérifie les arguments et les enregistre dans la structure dinner
+    if (!check_arguments(argc, argv, &dinner))
+        return (1);
+
+    // Initialise les structures, les threads et les mutex
+    if (!init_dinner(&dinner))
+        return (1);
+
+    // Libère les ressources (mutex) allouées
+    destroy_mutex(&dinner, FORK | PRINT | DEAD | MEAL, dinner.nbr_philos);
 }
